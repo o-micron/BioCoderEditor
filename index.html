@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BioCoderEditor</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <!-- STYLING -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/editor.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div
+      id="playground_screen"
+      class="container-fluid main_container text-white d-flex"
+    >
+      <div class="row flex-fill" style="padding-left: 0px;">
+        <div id="editor-tabs-parent" class="col-6 h-100">
+          <nav
+            id="editor-tabs"
+            class="navbar navbar-expand-md navbar-light bg-white"
+          >
+            <div class="navbar-collapse collapse">
+              <ul class="navbar-nav nav-tabs flex-fill">
+                <li id="main-cpp-ui-li" class="nav-item active">
+                  <a
+                    id="main-cpp-ui-a"
+                    class="nav-link active"
+                    href="#"
+                    onclick="onUITabChange('main_cpp')"
+                  >
+                    main.cpp
+                  </a>
+                </li>
+              </ul>
+              <ul class="navbar-nav nav-tabs ml-auto">
+                <li id="biocoder-cpp-ui-li" class="nav-item">
+                  <a
+                    id="biocoder-cpp-ui-a"
+                    class="nav-link"
+                    href="#"
+                    onclick="onUITabChange('biocoder_cpp')"
+                    >biocoder.cpp</a
+                  >
+                </li>
+                <li id="biocoder-h-ui-li" class="nav-item">
+                  <a
+                    id="biocoder-h-ui-a"
+                    class="nav-link"
+                    href="#"
+                    onclick="onUITabChange('biocoder_h')"
+                    >biocoder.h</a
+                  >
+                </li>
+                <li id="graph-cpp-ui-li" class="nav-item">
+                  <a
+                    id="graph-cpp-ui-a"
+                    class="nav-link"
+                    href="#"
+                    onclick="onUITabChange('graph_cpp')"
+                    >graph.cpp</a
+                  >
+                </li>
+                <li id="graph-h-ui-li" class="nav-item">
+                  <a
+                    id="graph-h-ui-a"
+                    class="nav-link"
+                    href="#"
+                    onclick="onUITabChange('graph_h')"
+                    >graph.h</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div id="playground" class=""></div>
+        </div>
+        <div
+          id="controls"
+          class="col-6 mmenu_screen--direktaction bg-faded flex-fill bg-error"
+        >
+          <div class="row h-100">
+            <div class="col-12" id="mmenu_screen--information">
+              <div id="canvas-parent" class="h-100">
+                <nav
+                  id="game-tabs"
+                  class="navbar navbar-expand-md navbar-light bg-white"
+                >
+                  <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav flex-fill">
+                      <li class="nav-item">
+                        <button
+                          id="build-btn"
+                          class="btn nav-link"
+                          href="#"
+                          onclick="onUIBuild()"
+                          title="build"
+                        >
+                          <i id="build-btn-glyph" class="fas fa-hammer"></i>
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          id="run-btn"
+                          class="btn nav-link"
+                          href="#"
+                          onclick="onUIRun()"
+                          title="run"
+                        >
+                          <i id="run-btn-glyph" class="fas fa-play"></i>
+                        </button>
+                      </li>
+                    </ul>
+                    <ul class="navbar-nav flex-fill">
+                      <!-- status text -->
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                        <a
+                          id="docs-btn"
+                          class="btn nav-link"
+                          href="/docs/index.html"
+                          target="_blank"
+                          title="documentation"
+                        >
+                          <i id="docs-btn-glyph" class="fas fa-book"></i>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          id="docs-btn"
+                          class="btn nav-link"
+                          href="https://github.com/o-micron/BioCoderEditor"
+                          target="_blank"
+                          title="github"
+                        >
+                          <i id="github-btn-glyph" class="fab fa-github"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+                <canvas id="canvas-renderer" class="d-none"></canvas>
+                <iframe
+                  id="iframe-shell"
+                  src="toolchain/"
+                  frameborder="0"
+                  class=""
+                  style="padding-left: 0; padding-right: 0;"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOWNLOAD MODAL -->
+    <div
+      id="downloadModal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">
+              <i class="far fa-flag"></i>
+              Install Language Extension
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="model-body-content"></p>
+            <br />
+            <h6>
+              <i class="font-weight-lighter text-info">
+                once you download the language extension you can then compile
+                and run your code offline.<br />
+                There will be no internet needed to compile or run your code
+              </i>
+            </h6>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="modal-cancel"
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              id="modal-accept"
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
+              Download
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/min/vs/loader.js"></script>
+    <script src="js/editor.js"></script>
+  </body>
+</html>
