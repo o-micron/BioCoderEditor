@@ -2,9 +2,9 @@
 ```
 This is only a rehashed version of the original work done by the authors of BioCoder
 I started from that repository https://github.com/nmz787/BioCoder
-I only tried to make it more open and usable for anyone on the web using WebAssembly
-The main goal is to make it easier for people to get to play around with BioCoder
-You can open the editor and start writing, compiling and running some protocol samples
+I only ported the code to web assembly and created the online editor
+The main goal is to make it easier for people to execute BioCoder on the web 
+You can already open the editor and start writing, compiling and running some protocol samples
 ```
 
 # Try it in your browser
