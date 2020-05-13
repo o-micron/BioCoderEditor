@@ -1,9 +1,15 @@
 # BioCoderEditor
 ```
 This is only a rehashed version of the original work done by the authors of BioCoder
-You can download the official BioCoder code repo from Microsoft Download Center there
-https://www.microsoft.com/en-us/download/details.aspx?id=52556
+```
 
+You can download the official BioCoder code repo from Microsoft Download Center
+[BioCoder 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=52556)
+
+You can also read the published research
+[A programming language for standardizing and automating biology protocols](https://www.microsoft.com/en-us/research/publication/biocoder-a-programming-language-for-standardizing-and-automating-biology-protocols/)
+
+```
 I ported the code to web assembly and created the online editor
 The main goal is to make it easier for people to execute biology protocols on the web 
 You can already open the editor and start writing, compiling and running some protocol samples
